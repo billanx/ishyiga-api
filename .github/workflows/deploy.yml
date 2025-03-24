@@ -29,8 +29,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t billyrugamba/ishyiga-backend:latest .
-          docker push billyrugamba/ishyiga-backend:latest
+          docker build -t billyrugamba/ishyiga-api:latest .
+          docker push billyrugamba/ishyiga-api:latest
 
       - name: Install sshpass
         run: |
@@ -40,8 +40,8 @@ jobs:
       - name: Deploy to Digital Ocean (Password Authentication)
         run: |
           sshpass -p R00t@2025A ssh -o StrictHostKeyChecking=no root@68.183.43.111 "
-            docker pull billyrugamba/ishyiga-backend:latest && \
-            docker stop ishyiga-backend || true && \
-            docker rm ishyiga-backend || true && \
-            docker run -d --name ishyiga-backend -p 8085:8085 --restart always billyrugamba/ishyiga-backend:latest
+            docker pull billyrugamba/ishyiga-api:latest && \
+            docker stop ishyiga-api || true && \
+            docker rm ishyiga-api || true && \
+            docker run -d --name ishyiga-api -p 8085:8085 --restart always billyrugamba/ishyiga-api:latest
           "
