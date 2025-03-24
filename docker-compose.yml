@@ -1,0 +1,36 @@
+services:
+  #  mysql-db:
+  #    image: mysql:8.0
+  #    container_name: mysql-container
+  #    restart: always
+  #    environment:
+  #      MYSQL_ROOT_PASSWORD: root@123
+  #      MYSQL_DATABASE: ishyiga_staging
+  #      MYSQL_USER: loan
+  #      MYSQL_PASSWORD: loan@123
+  #    ports:
+  #      - "3306:3306"
+  #    networks:
+  #      - ishyiga-network
+
+  spring-app:
+    build: .
+    container_name: ishyiga-api
+    restart: always
+    #    depends_on:
+    #      - localhost
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://68.183.43.111:3306/ishyiga_api?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: loan
+      SPRING_DATASOURCE_PASSWORD: Loan@12345
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+    ports:
+      - "8086:8086"
+    networks:
+      - ishyiga-network
+
+networks:
+  ishyiga-network:
+    driver: bridge
