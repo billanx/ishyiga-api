@@ -1,0 +1,47 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build JAR file
+        run: |
+          chmod +x mvnw
+          ./mvnw clean package -DskipTests
+
+      - name: Log in to Docker Hub
+        run: echo wupja0-rutZyr-jycvon | docker login -u billyrugamba --password-stdin
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t billyrugamba/ishyiga-backend:latest .
+          docker push billyrugamba/ishyiga-backend:latest
+
+      - name: Install sshpass
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+
+      - name: Deploy to Digital Ocean (Password Authentication)
+        run: |
+          sshpass -p R00t@2025A ssh -o StrictHostKeyChecking=no root@68.183.43.111 "
+            docker pull billyrugamba/ishyiga-backend:latest && \
+            docker stop ishyiga-backend || true && \
+            docker rm ishyiga-backend || true && \
+            docker run -d --name ishyiga-backend -p 8085:8085 --restart always billyrugamba/ishyiga-backend:latest
+          "
