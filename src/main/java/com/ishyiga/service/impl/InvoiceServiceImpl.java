@@ -2,7 +2,9 @@ package com.ishyiga.service.impl;
 
 import com.ishyiga.entities.Invoice;
 import com.ishyiga.entities.ListItem;
+import com.ishyiga.exception.BadRequestException;
 import com.ishyiga.exception.DatabaseException;
+import com.ishyiga.model.Response;
 import com.ishyiga.repo.InvoiceRepository;
 import com.ishyiga.repo.ListItemRepository;
 import com.ishyiga.service.InvoiceService;
@@ -38,14 +40,22 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public Invoice updateInvoice(Integer id, Invoice updatedInvoice) {
+    public Response updateInvoice(Integer id, Invoice updatedInvoice) {
+        Response response = new Response();
+
         return invoiceRepository.findById(id).map(invoice -> {
-            invoice.setNumClient(updatedInvoice.getNumClient());
-            invoice.setDate(updatedInvoice.getDate());
-            invoice.setTotal(updatedInvoice.getTotal());
-            return invoiceRepository.save(invoice);
-        }).orElseThrow(() -> new RuntimeException("Invoice not found"));
+            invoice.setStatus(updatedInvoice.getStatus());
+            invoiceRepository.save(invoice);
+            response.setStatus(true);
+            response.setMessage("Notification Received");
+            return response;
+        }).orElseGet(() -> {
+            response.setStatus(false);
+            response.setMessage("Invoice not found");
+            return response;
+        });
     }
+
 
     @Override
     public void deleteInvoice(Integer id) {

@@ -1,6 +1,7 @@
 package com.ishyiga.service;
 
 import com.ishyiga.entities.Invoice;
+import com.ishyiga.model.Response;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface InvoiceService {
     Invoice saveInvoice(Invoice invoice);
     List<Invoice> getAllInvoices();
     Optional<Invoice> getInvoiceById(Integer id);
-    Invoice updateInvoice(Integer id, Invoice invoice);
+    Response updateInvoice(Integer id, Invoice invoice);
     Invoice saveInvoiceWithListItems(Invoice invoice);
     void deleteInvoice(Integer id);
 }

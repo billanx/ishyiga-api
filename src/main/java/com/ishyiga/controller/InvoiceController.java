@@ -50,9 +50,9 @@ public class InvoiceController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','ISHYIGA')")
-    public ResponseEntity<Invoice> updateInvoice(@PathVariable Integer id, @RequestBody Invoice invoice) {
-        return ResponseEntity.ok(invoiceService.updateInvoice(id, invoice));
+    @PreAuthorize("hasAnyRole('ADMIN','ISHYIGA','BANK')")
+    public ResponseEntity<?> updateInvoice(@PathVariable Integer id, @RequestBody Invoice invoice) {
+        return new ResponseEntity<>(invoiceService.updateInvoice(id, invoice),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
