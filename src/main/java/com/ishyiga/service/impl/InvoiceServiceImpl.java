@@ -2,7 +2,6 @@ package com.ishyiga.service.impl;
 
 import com.ishyiga.entities.Invoice;
 import com.ishyiga.entities.ListItem;
-import com.ishyiga.exception.BadRequestException;
 import com.ishyiga.exception.DatabaseException;
 import com.ishyiga.model.Response;
 import com.ishyiga.repo.InvoiceRepository;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,6 +37,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Optional<Invoice> getInvoiceById(Integer id) {
         return invoiceRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Invoice> getInvoiceByIdInvoice(Integer id){
+        return invoiceRepository.findByIdInvoice(id);
     }
 
     @Override

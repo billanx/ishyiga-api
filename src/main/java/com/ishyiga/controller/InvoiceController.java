@@ -99,29 +99,29 @@ public class InvoiceController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ISHYIGA','BANK')")
-    @Operation(summary = "Get invoice by ID", description = "Retrieves an invoice by its ID")
+    @Operation(summary = "Get invoice by Invoice ID", description = "Retrieves an invoice by its ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Invoice found"),
-        @ApiResponse(responseCode = "403", description = "Access denied"),
-        @ApiResponse(responseCode = "404", description = "Invoice not found"),
-        @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "200", description = "Invoice found"),
+            @ApiResponse(responseCode = "403", description = "Access denied"),
+            @ApiResponse(responseCode = "404", description = "Invoice not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    public ResponseEntity<?> getInvoiceById(
+    public ResponseEntity<?> getInvoiceByIdInvoice(
             @Parameter(description = "ID of the invoice to retrieve")
             @PathVariable @Min(1) Integer id) {
         try {
-            Optional<Invoice> invoice = invoiceService.getInvoiceById(id);
+            Optional<Invoice> invoice = invoiceService.getInvoiceByIdInvoice(id);
             if (invoice.isPresent()) {
                 return ResponseEntity.ok(invoice.get());
             }
             return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse("Invoice not found", "No invoice found with id: " + id));
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("Invoice not found", "No invoice found with id: " + id));
         } catch (Exception e) {
             log.error("Failed to retrieve invoice {}: {}", id, e.getMessage(), e);
             return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse("Failed to retrieve invoice", e.getMessage()));
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("Failed to retrieve invoice", e.getMessage()));
         }
     }
 
