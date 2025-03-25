@@ -5,6 +5,8 @@ import com.ishyiga.exception.DatabaseException;
 import com.ishyiga.repo.ListItemRepository;
 import com.ishyiga.service.ListItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public class ListItemServiceImpl implements ListItemService {
     }
 
     @Override
-    public List<ListItem> getAllListItems() {
-        return listItemRepository.findAll();
+    public Page<ListItem> getAllListItems(Pageable pageable) {
+        return listItemRepository.findAll(pageable);
     }
 
     @Override

@@ -1,12 +1,11 @@
-
 package com.ishyiga.service;
 
 import com.ishyiga.entities.Item;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ItemService {
-     List<Item> getAllItems();
-     Item saveItem(Item item);
-     void deleteItem(Long id);
+    Page<Item> getAllItems(Pageable pageable);
+    Item saveItem(Item item);
+    void deleteItem(Long id);
 }

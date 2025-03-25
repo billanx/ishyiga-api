@@ -9,6 +9,8 @@ import com.ishyiga.repo.InvoiceRepository;
 import com.ishyiga.repo.ListItemRepository;
 import com.ishyiga.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +32,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getAllInvoices() {
-        return invoiceRepository.findAll();
+    public Page<Invoice> getAllInvoices(Pageable pageable) {
+        return invoiceRepository.findAll(pageable);
     }
 
     @Override

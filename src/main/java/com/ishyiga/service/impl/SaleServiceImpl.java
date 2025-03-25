@@ -1,4 +1,3 @@
-
 package com.ishyiga.service.impl;
 
 import com.ishyiga.entities.Sale;
@@ -8,6 +7,8 @@ import com.ishyiga.repo.SaleRepository;
 import com.ishyiga.service.SaleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +20,18 @@ import java.util.Map;
 public class SaleServiceImpl implements SaleService {
     @Autowired
     private SaleRepository saleRepository;
-    public List<Sale> getAllSales() { return saleRepository.findAll(); }
+
+    @Override
+    public Page<Sale> getAllSales(Pageable pageable) {
+        return saleRepository.findAll(pageable);
+    }
+
+    @Override
     public Sale saveSale(Sale sale) {
         try {
             return saleRepository.save(sale);
-        }catch (Exception e){
-            throw new DatabaseException("Error while saving the invoice: " + e.getCause());
+        } catch (Exception e) {
+            throw new DatabaseException("Error while saving the sale: " + e.getCause());
         }
     }
 
@@ -37,13 +44,16 @@ public class SaleServiceImpl implements SaleService {
             try {
                 successList.add(saveSale(dto));
             } catch (BadRequestException e) {
-                log.error("Skipping sales updates for sales {} due to error: {}",sales, e.getMessage());
-                failedList.add("Failed to update sales for " + sales + ": " + e.getMessage());
+                log.error("Skipping sale updates for sales {} due to error: {}", sales, e.getMessage());
+                failedList.add("Failed to update sale for " + sales + ": " + e.getMessage());
             }
         }
 
         return Map.of("success", successList, "failed", failedList);
     }
 
-    public void deleteSale(Long id) { saleRepository.deleteById(id); }
+    @Override
+    public void deleteSale(Long id) {
+        saleRepository.deleteById(id);
+    }
 }
