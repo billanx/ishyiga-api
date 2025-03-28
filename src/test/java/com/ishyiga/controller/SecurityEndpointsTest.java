@@ -133,10 +133,11 @@ public class SecurityEndpointsTest {
     private String createListItemRequest() throws Exception {
         String uniqueId = String.valueOf(System.currentTimeMillis());
         Map<String, Object> invoice = new HashMap<>();
+        invoice.put("idInvoice", 1);
         invoice.put("date", "2025-03-25");
-        invoice.put("heure", "10:00:00");
-        invoice.put("document", "DOC" + uniqueId);
-        invoice.put("employe", "EMP" + uniqueId);
+        invoice.put("heure", "2025-03-25T10:00:00");
+        invoice.put("document", 1);
+        invoice.put("employe", "TEST" + uniqueId);
         invoice.put("mode", "CASH");
         invoice.put("numClient", "CLT" + uniqueId);
         invoice.put("numFact", "FG" + uniqueId);
