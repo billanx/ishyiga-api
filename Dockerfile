@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy the built JAR file
 COPY target/ishyiga-api.jar app.jar
 
+
 # Expose the application port
 EXPOSE 8086
 
