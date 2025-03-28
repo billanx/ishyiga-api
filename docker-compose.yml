@@ -22,7 +22,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://68.183.43.111:3306/ishyiga_api?allowPublicKeyRetrieval=true&useSSL=false
       SPRING_DATASOURCE_USERNAME: loan
-      SPRING_DATASOURCE_PASSWORD: Loan@12345
+      SPRING_DATASOURCE_PASSWORD: l0an@ishyiga_2025!
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"

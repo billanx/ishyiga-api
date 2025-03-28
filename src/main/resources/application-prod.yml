@@ -3,9 +3,9 @@ spring:
     name: ishyiga-api
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ishyiga_api?allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: root@123
+    url: jdbc:mysql://68.183.43.111:3306/ishyiga_api?allowPublicKeyRetrieval=true&useSSL=false
+    username: loan
+    password: r00t@ishyiga_2025!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
